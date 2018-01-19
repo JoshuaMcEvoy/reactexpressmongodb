@@ -2,8 +2,8 @@ const express = require('express');
 // same as 'import express from 'express';' but need to use this for server side:
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-
-require('./services/passport.js');
+require('./models/User');
+require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
 
