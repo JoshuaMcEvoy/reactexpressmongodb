@@ -5,7 +5,7 @@ const app = express();
 
 // generating routes
 app.get('/', (req, res) => {
-  res.send({hi: 'there'});
+  res.send({ bye: 'buddy' });
 });
 
 //  getting port from heroku
