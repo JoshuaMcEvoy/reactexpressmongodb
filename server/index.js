@@ -22,6 +22,8 @@ app.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
 
+app.get('/auth/google/callback', passport.authenticate('google'));
+
 //  getting port from heroku
 const PORT = process.env.PORT || 5000
 
