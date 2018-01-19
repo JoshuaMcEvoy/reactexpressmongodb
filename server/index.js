@@ -1,11 +1,15 @@
 const express = require('express');
 // same as 'import express from 'express';' but need to use this for server side:
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
 
-// generating routes
-app.get('/', (req, res) => {
-  res.send({ bye: 'buddy' });
+passport.use( new GoogleStrategy() );
+
+// ROUTES
+app.get('/auth/google', (req, res) => {
+
 });
 
 //  getting port from heroku
