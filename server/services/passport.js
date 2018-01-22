@@ -18,22 +18,23 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-passport.use( new GoogleStrategy({
-  clientID: keys.googleClientID,
-  clientSecret: keys.googleClientSecret,
-  callbackURL: '/auth/google/callback',
-  proxy: true
-},
-(accessToken, refreshToken, profile, done) => {
+passport.use(
+  new GoogleStrategy({
+    clientID: keys.googleClientID,
+    clientSecret: keys.googleClientSecret,
+    callbackURL: '/auth/google/callback',
+    proxy: true
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    // 'existingUser' gets passed to serializeUser
+    const existingUser = await User.findOne({ googleId: profile.id })
 
-  // existingUser gets passed to serializeUser
-  User.findOne({ googleId: profile.id }).then((existingUser) => {
     if (existingUser){
       done(null, existingUser);
-    } else {
-      // user gets passed to serializeUser
-      new User({ googleId: profile.id }).save().then(user => done(null, user));
     }
-  });
-
-}));
+      // 'user' gets passed to serializeUser
+      const user = await new User({ googleId: profile.id }).save()
+      done(null, user);
+    }
+  )
+);
