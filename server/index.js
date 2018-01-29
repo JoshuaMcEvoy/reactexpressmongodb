@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
@@ -11,6 +12,8 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+// any requests from stripe coming back will be trued into a json object
+app.use(bodyParser.json())
 // tells express that we need to use cookies
 app.use(
   cookieSession({
