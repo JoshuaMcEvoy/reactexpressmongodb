@@ -26,6 +26,7 @@ app.use(passport.session());
 
 // returning a function then calling the next function.
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 
 //  getting port from heroku
